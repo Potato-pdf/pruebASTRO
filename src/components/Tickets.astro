@@ -1,0 +1,171 @@
+---
+// Datos de los tickets
+const tickets = [
+  {
+    name: "ENTRADA GENERAL",
+    price: "99",
+    description: "Acceso a todas las áreas generales del festival durante los tres días.",
+    features: [
+      "Acceso a todos los escenarios",
+      "Zona de food trucks",
+      "Áreas de descanso",
+      "Parking general"
+    ],
+    popular: false,
+    color: "primary"
+  },
+  {
+    name: "VIP EXPERIENCE",
+    price: "199",
+    description: "Disfruta del festival con acceso a zonas exclusivas y beneficios premium.",
+    features: [
+      "Todo lo incluido en Entrada General",
+      "Acceso a zonas VIP en escenarios",
+      "Barra libre en zona VIP",
+      "Baños exclusivos",
+      "Parking preferente"
+    ],
+    popular: true,
+    color: "secondary"
+  },
+  {
+    name: "PLATINUM",
+    price: "349",
+    description: "La experiencia definitiva con todos los beneficios y accesos exclusivos.",
+    features: [
+      "Todo lo incluido en VIP Experience",
+      "Meet & Greet con artistas",
+      "Acceso backstage",
+      "Zona lounge exclusiva",
+      "Servicio de concierge",
+      "Transfer hotel-festival"
+    ],
+    popular: false,
+    color: "accent"
+  }
+];
+---
+
+<section id="tickets" class="py-20 bg-dark relative overflow-hidden">
+  <!-- Elementos decorativos de fondo -->
+  <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 bg-gradient-to-b from-dark/90 to-black/90 z-0"></div>
+    <div class="absolute top-0 left-0 w-full h-full bg-[url('/images/circuit-pattern.svg')] bg-repeat opacity-5 z-0"></div>
+  </div>
+  
+  <div class="container mx-auto px-4 z-10 relative">
+    <h2 class="text-4xl md:text-5xl font-display text-center text-light mb-16 relative overflow-hidden">
+      <span class="inline-block tickets-title">ENTRADAS</span>
+    </h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {tickets.map((ticket, index) => (
+        <div 
+          class={`ticket-card relative overflow-hidden rounded-xl bg-dark/50 backdrop-blur-sm border border-${ticket.color}/30 transition-all duration-500 hover:shadow-xl hover:shadow-${ticket.color}/20 hover:-translate-y-2 ${ticket.popular ? 'transform scale-105 md:scale-110 z-10' : ''}`}
+          data-aos="fade-up"
+          data-aos-delay={index * 100}
+        >
+          {ticket.popular && (
+            <div class="absolute top-0 right-0">
+              <div class="bg-secondary text-white text-xs font-bold px-3 py-1 rounded-bl-lg transform rotate-0 origin-top-right">
+                POPULAR
+              </div>
+            </div>
+          )}
+          
+          <div class="p-8">
+            <h3 class={`text-2xl font-display font-bold text-${ticket.color} mb-2`}>{ticket.name}</h3>
+            <div class="flex items-end mb-6">
+              <span class={`text-4xl font-display font-bold text-light`}>{ticket.price}€</span>
+              <span class="text-light/60 ml-1 mb-1">/persona</span>
+            </div>
+            
+            <p class="text-light/70 mb-6">{ticket.description}</p>
+            
+            <ul class="space-y-3 mb-8">
+              {ticket.features.map(feature => (
+                <li class="flex items-start">
+                  <span class={`text-${ticket.color} mr-2 mt-1`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                  <span class="text-light/80">{feature}</span>
+                </li>
+              ))}
+            </ul>
+            
+            <a 
+              href="#" 
+              class={`block w-full text-center py-3 px-6 rounded-lg ${ticket.popular ? 'bg-gradient-to-r from-primary to-secondary text-white' : 'bg-transparent border border-light/30 text-light hover:border-primary hover:text-primary'} font-bold transition-all duration-300 hover:shadow-lg hover:shadow-${ticket.color}/20`}
+            >
+              COMPRAR AHORA
+            </a>
+          </div>
+          
+          <div class={`absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-${ticket.color} to-${ticket.color}/0`}></div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="mt-16 text-center">
+      <div class="max-w-3xl mx-auto bg-dark/30 backdrop-blur-sm border border-light/10 rounded-xl p-6 md:p-8">
+        <h3 class="text-2xl font-display text-light mb-4">¿Tienes un grupo grande?</h3>
+        <p class="text-light/70 mb-6">Ofrecemos descuentos especiales para grupos de más de 10 personas. Contacta con nuestro equipo para más información.</p>
+        <a 
+          href="#contact" 
+          class="inline-block bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-8 rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/30"
+        >
+          CONTACTAR
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tickets-title {
+    position: relative;
+  }
+  
+  .tickets-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--tw-color-primary), var(--tw-color-secondary));
+    border-radius: 2px;
+  }
+  
+  .ticket-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .ticket-card:hover {
+    z-index: 20;
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    // Animación de las tarjetas de tickets
+    gsap.from('.ticket-card', {
+      scrollTrigger: {
+        trigger: '#tickets',
+        start: 'top 80%'
+      },
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: 'power3.out'
+    });
+  });
+</script>

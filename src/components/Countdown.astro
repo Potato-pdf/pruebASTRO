@@ -1,0 +1,152 @@
+---
+// Fecha del festival (formato: YYYY-MM-DD)
+const festivalDate = "2025-08-15";
+---
+
+<section id="countdown" class="py-20 bg-dark relative overflow-hidden">
+  <!-- Elementos decorativos de fondo -->
+  <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 z-0"></div>
+    <div class="absolute top-0 left-0 w-full h-full bg-[url('/images/dots-pattern.svg')] bg-repeat opacity-5 z-0"></div>
+  </div>
+  
+  <div class="container mx-auto px-4 z-10 relative">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-display text-center text-light mb-12 relative overflow-hidden">
+        <span class="inline-block countdown-title">LA CUENTA ATRÁS HA COMENZADO</span>
+      </h2>
+      
+      <div class="countdown-container" data-festival-date={festivalDate}>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <!-- Días -->
+          <div class="countdown-item" data-aos="flip-left" data-aos-delay="0">
+            <div class="bg-dark/50 backdrop-blur-sm border border-light/10 rounded-xl p-6 md:p-8 relative overflow-hidden">
+              <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-primary/0"></div>
+              <div class="countdown-value days text-5xl md:text-6xl font-display font-bold text-light mb-2">00</div>
+              <div class="countdown-label text-light/70 text-lg">Días</div>
+            </div>
+          </div>
+          
+          <!-- Horas -->
+          <div class="countdown-item" data-aos="flip-left" data-aos-delay="100">
+            <div class="bg-dark/50 backdrop-blur-sm border border-light/10 rounded-xl p-6 md:p-8 relative overflow-hidden">
+              <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-secondary to-secondary/0"></div>
+              <div class="countdown-value hours text-5xl md:text-6xl font-display font-bold text-light mb-2">00</div>
+              <div class="countdown-label text-light/70 text-lg">Horas</div>
+            </div>
+          </div>
+          
+          <!-- Minutos -->
+          <div class="countdown-item" data-aos="flip-left" data-aos-delay="200">
+            <div class="bg-dark/50 backdrop-blur-sm border border-light/10 rounded-xl p-6 md:p-8 relative overflow-hidden">
+              <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-accent/0"></div>
+              <div class="countdown-value minutes text-5xl md:text-6xl font-display font-bold text-light mb-2">00</div>
+              <div class="countdown-label text-light/70 text-lg">Minutos</div>
+            </div>
+          </div>
+          
+          <!-- Segundos -->
+          <div class="countdown-item" data-aos="flip-left" data-aos-delay="300">
+            <div class="bg-dark/50 backdrop-blur-sm border border-light/10 rounded-xl p-6 md:p-8 relative overflow-hidden">
+              <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary"></div>
+              <div class="countdown-value seconds text-5xl md:text-6xl font-display font-bold text-light mb-2">00</div>
+              <div class="countdown-label text-light/70 text-lg">Segundos</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-12">
+        <a 
+          href="#tickets" 
+          class="inline-block bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-8 rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/30"
+        >
+          RESERVA TU ENTRADA AHORA
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .countdown-title {
+    position: relative;
+  }
+  
+  .countdown-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--tw-color-primary), var(--tw-color-secondary));
+    border-radius: 2px;
+  }
+  
+  .countdown-item {
+    position: relative;
+    transition: transform 0.5s ease;
+  }
+  
+  .countdown-item:hover {
+    transform: translateY(-10px);
+  }
+  
+  .countdown-value {
+    background: linear-gradient(90deg, var(--tw-color-primary), var(--tw-color-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const countdownContainer = document.querySelector('.countdown-container');
+    if (!countdownContainer) return;
+    
+    const festivalDate = countdownContainer.getAttribute('data-festival-date');
+    const festivalTime = new Date(festivalDate).getTime();
+    
+    const daysEl = document.querySelector('.days');
+    const hoursEl = document.querySelector('.hours');
+    const minutesEl = document.querySelector('.minutes');
+    const secondsEl = document.querySelector('.seconds');
+    
+    // Actualizar el contador cada segundo
+    const countdown = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = festivalTime - now;
+      
+      // Cálculo de tiempo
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      // Mostrar los resultados con formato de dos dígitos
+      if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+      if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+      if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+      if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+      
+      // Si la cuenta regresiva termina
+      if (distance < 0) {
+        clearInterval(countdown);
+        if (daysEl) daysEl.textContent = '00';
+        if (hoursEl) hoursEl.textContent = '00';
+        if (minutesEl) minutesEl.textContent = '00';
+        if (secondsEl) secondsEl.textContent = '00';
+      }
+    }, 1000);
+    
+    // Animación de los elementos del contador
+    const countdownItems = document.querySelectorAll('.countdown-item');
+    countdownItems.forEach((item, index) => {
+      item.style.animationDelay = `${index * 0.1}s`;
+    });
+  });
+</script>

@@ -1,0 +1,133 @@
+---
+const galleryImages = [
+  {
+    src: '/gallery/gallery1.jpg',
+    alt: 'Escenario principal con efectos de luces',
+    category: 'Escenarios'
+  },
+  {
+    src: '/gallery/gallery2.jpg',
+    alt: 'Multitud disfrutando del festival',
+    category: 'Público'
+  },
+  {
+    src: '/gallery/gallery3.jpg',
+    alt: 'DJ en acción durante su set',
+    category: 'Artistas'
+  },
+  {
+    src: '/gallery/gallery4.jpg',
+    alt: 'Espectáculo de luces y láser',
+    category: 'Producción'
+  },
+  {
+    src: '/gallery/gallery5.jpg',
+    alt: 'Área VIP del festival',
+    category: 'Experiencias'
+  },
+  {
+    src: '/gallery/gallery6.jpg',
+    alt: 'Vista aérea del festival',
+    category: 'Vistas'
+  }
+];
+
+// Categorías para filtrar
+const categories = [...new Set(galleryImages.map(img => img.category))];
+---
+
+<section id="gallery" class="py-20 bg-gradient-to-b from-dark to-black">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl md:text-5xl font-display text-center text-light mb-12 relative overflow-hidden">
+      <span class="inline-block gallery-title">Galería de Momentos</span>
+    </h2>
+    
+    <div class="flex flex-wrap justify-center gap-4 mb-10">
+      <button class="filter-btn active" data-category="all">Todos</button>
+      {categories.map(category => (
+        <button class="filter-btn" data-category={category}>{category}</button>
+      ))}
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gallery-container">
+      {galleryImages.map((image, index) => (
+        <div 
+          class="gallery-item overflow-hidden rounded-lg relative cursor-pointer" 
+          data-category={image.category}
+          data-aos="fade-up"
+          data-aos-delay={index * 100}
+        >
+          <img 
+            src={image.src} 
+            alt={image.alt} 
+            class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+            <p class="text-light font-medium">{image.alt}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    // Filtrado de galería
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Actualizar botón activo
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const category = btn.getAttribute('data-category');
+        
+        // Filtrar elementos
+        galleryItems.forEach(item => {
+          if (category === 'all' || item.getAttribute('data-category') === category) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
+
+<style>
+  .gallery-title {
+    position: relative;
+  }
+  
+  .gallery-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--tw-color-primary), var(--tw-color-secondary));
+    border-radius: 2px;
+  }
+  
+  .filter-btn {
+    @apply px-4 py-2 rounded-full text-light border border-primary/30 transition-all duration-300;
+  }
+  
+  .filter-btn:hover, .filter-btn.active {
+    @apply bg-primary border-primary text-white shadow-lg shadow-primary/20;
+  }
+  
+  .gallery-item {
+    @apply transform transition-all duration-500;
+  }
+  
+  .gallery-item:hover {
+    @apply shadow-xl shadow-primary/20 -translate-y-2;
+  }
+</style>

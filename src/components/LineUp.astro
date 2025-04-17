@@ -1,0 +1,301 @@
+---
+// Datos de los artistas del festival
+const artists = [
+  {
+    name: "DAVID GUETTA",
+    image: "/artists/artist1.jpg",
+    day: "Viernes",
+    time: "23:30 - 01:00",
+    stage: "Main Stage",
+    featured: true
+  },
+  {
+    name: "MARTIN GARRIX",
+    image: "/artists/artist2.jpg",
+    day: "Sábado",
+    time: "00:00 - 01:30",
+    stage: "Main Stage",
+    featured: true
+  },
+  {
+    name: "ARMIN VAN BUUREN",
+    image: "/artists/artist3.jpg",
+    day: "Domingo",
+    time: "22:00 - 23:30",
+    stage: "Main Stage",
+    featured: true
+  },
+  {
+    name: "CHARLOTTE DE WITTE",
+    image: "/artists/artist4.jpg",
+    day: "Viernes",
+    time: "21:00 - 22:30",
+    stage: "Techno Arena",
+    featured: false
+  },
+  {
+    name: "CARL COX",
+    image: "/artists/artist5.jpg",
+    day: "Sábado",
+    time: "22:30 - 00:00",
+    stage: "Techno Arena",
+    featured: false
+  },
+  {
+    name: "NINA KRAVIZ",
+    image: "/artists/artist6.jpg",
+    day: "Domingo",
+    time: "20:00 - 21:30",
+    stage: "Underground Stage",
+    featured: false
+  },
+  {
+    name: "DEADMAU5",
+    image: "/artists/artist7.jpg",
+    day: "Viernes",
+    time: "00:30 - 02:00",
+    stage: "Electronic Dome",
+    featured: false
+  },
+  {
+    name: "AMELIE LENS",
+    image: "/artists/artist8.jpg",
+    day: "Sábado",
+    time: "19:00 - 20:30",
+    stage: "Underground Stage",
+    featured: false
+  },
+  {
+    name: "BORIS BREJCHA",
+    image: "/artists/artist9.jpg",
+    day: "Domingo",
+    time: "18:00 - 19:30",
+    stage: "Techno Arena",
+    featured: false
+  }
+];
+
+// Artistas destacados
+const featuredArtists = artists.filter(artist => artist.featured);
+
+// Resto de artistas
+const regularArtists = artists.filter(artist => !artist.featured);
+
+// Días del festival
+const days = ["Viernes", "Sábado", "Domingo"];
+---
+
+<section id="lineup" class="py-20 bg-gradient-to-b from-black to-dark relative overflow-hidden">
+  <!-- Elementos decorativos de fondo -->
+  <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 z-0"></div>
+    <div class="absolute top-0 left-0 w-full h-full bg-[url('/images/noise-pattern.svg')] bg-repeat opacity-5 z-0"></div>
+  </div>
+  
+  <div class="container mx-auto px-4 z-10 relative">
+    <h2 class="text-4xl md:text-5xl font-display text-center text-light mb-16 relative overflow-hidden">
+      <span class="inline-block lineup-title">LINE UP</span>
+    </h2>
+    
+    <!-- Artistas destacados -->
+    <div class="featured-artists mb-16">
+      <h3 class="text-2xl font-display text-center text-light/80 mb-10">HEADLINERS</h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {featuredArtists.map((artist, index) => (
+          <div 
+            class="featured-artist-card relative overflow-hidden rounded-xl" 
+            data-aos="fade-up" 
+            data-aos-delay={index * 100}
+          >
+            <div class="aspect-[3/4] relative overflow-hidden group">
+              <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent z-10"></div>
+              <img 
+                src={artist.image} 
+                alt={artist.name}
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div class="absolute bottom-0 left-0 w-full p-6 z-20">
+                <h4 class="text-3xl font-display font-bold text-light mb-2 group-hover:text-primary transition-colors duration-300">{artist.name}</h4>
+                <div class="flex items-center text-light/70 mb-1">
+                  <span class="mr-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </span>
+                  <span>{artist.day}</span>
+                </div>
+                <div class="flex items-center text-light/70 mb-1">
+                  <span class="mr-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </span>
+                  <span>{artist.time}</span>
+                </div>
+                <div class="flex items-center text-light/70">
+                  <span class="mr-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </span>
+                  <span>{artist.stage}</span>
+                </div>
+              </div>
+              <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-secondary/40 opacity-0 group-hover:opacity-30 transition-opacity duration-500 z-0"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    
+    <!-- Pestañas por día -->
+    <div class="regular-artists">
+      <div class="tabs-container">
+        <div class="flex justify-center mb-8">
+          <div class="inline-flex rounded-full bg-dark/50 backdrop-blur-sm border border-light/10 p-1">
+            {days.map((day, index) => (
+              <button 
+                class={`day-tab px-6 py-2 rounded-full text-light transition-all duration-300 ${index === 0 ? 'active' : ''}`} 
+                data-day={day}
+              >
+                {day}
+              </button>
+            ))}
+          </div>
+        </div>
+        
+        <div class="day-content">
+          {days.map((day, dayIndex) => (
+            <div class={`day-panel ${dayIndex === 0 ? 'active' : ''}`} data-day={day}>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {regularArtists
+                  .filter(artist => artist.day === day)
+                  .map((artist, index) => (
+                    <div 
+                      class="artist-card bg-dark/30 backdrop-blur-sm border border-light/10 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-2" 
+                      data-aos="fade-up" 
+                      data-aos-delay={index * 100}
+                    >
+                      <div class="p-6">
+                        <h4 class="text-xl font-display font-bold text-light mb-3">{artist.name}</h4>
+                        <div class="flex items-center text-light/70 mb-2">
+                          <span class="mr-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                          </span>
+                          <span>{artist.time}</span>
+                        </div>
+                        <div class="flex items-center text-light/70">
+                          <span class="mr-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                          </span>
+                          <span>{artist.stage}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-center mt-16">
+      <a 
+        href="#" 
+        class="inline-block bg-transparent border-2 border-primary text-primary font-bold py-3 px-8 rounded-full transform transition-all duration-300 hover:bg-primary hover:text-white hover:scale-105 hover:shadow-lg hover:shadow-primary/30"
+      >
+        VER LINEUP COMPLETO
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .lineup-title {
+    position: relative;
+  }
+  
+  .lineup-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--tw-color-primary), var(--tw-color-secondary));
+    border-radius: 2px;
+  }
+  
+  .day-tab {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .day-tab.active {
+    @apply bg-gradient-to-r from-primary to-secondary text-white;
+  }
+  
+  .day-panel {
+    display: none;
+  }
+  
+  .day-panel.active {
+    display: block;
+  }
+  
+  .artist-card {
+    position: relative;
+  }
+  
+  .artist-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--tw-color-primary), var(--tw-color-secondary));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  
+  .artist-card:hover::before {
+    transform: scaleX(1);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Funcionalidad de pestañas
+    const dayTabs = document.querySelectorAll('.day-tab');
+    const dayPanels = document.querySelectorAll('.day-panel');
+    
+    dayTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Actualizar pestaña activa
+        dayTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        // Mostrar panel correspondiente
+        const day = tab.getAttribute('data-day');
+        dayPanels.forEach(panel => {
+          if (panel.getAttribute('data-day') === day) {
+            panel.classList.add('active');
+          } else {
+            panel.classList.remove('active');
+          }
+        });
+      });
+    });
+  });
+</script>
